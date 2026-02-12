@@ -72,21 +72,23 @@ export function roundFare(amount, decimalPlaces) {
 }
 
 export function calculateSurge(baseFare, surgeMultiplier) {
-  if(typeof baseFare !== "number" ||
-    typeof surgeMultiplier !== "number" ||
-    isNaN(baseFare) ||
-    isNaN(surgeMultiplier) ||
-    baseFare < 0 || 
-    surgeMultiplier < 0){
+  if(typeof baseFare !== "number" || typeof surgeMultiplier !== "number" || isNaN(baseFare) || 
+      isNaN(surgeMultiplier) || baseFare < 0 || surgeMultiplier < 0){
     return 0;
   }
   return Math.ceil(baseFare * surgeMultiplier);
 }
 
+// 4. findCheapestAndCostliest(...fares)
+//  *      - Rest parameter (...) se variable number of fares le
+//  *      - Math.min() aur Math.max() se cheapest aur costliest dhundho
+//  *      - Non-number values filter out karo
+//  *      - Agar koi valid number nahi mila, return null
+//  *      - Return: { cheapest, costliest }
+//  *      - Example: findCheapestAndCostliest(150, 80, 200) => { cheapest: 80, costliest: 200 }
+
 export function findCheapestAndCostliest(...fares) {
-  const validFares = fares.filter(
-    fare => typeof fare === "number" && !isNaN(fare)
-  );
+  const validFares = fares.filter(fare => typeof fare === "number" && !isNaN(fare));
 
   if (validFares.length === 0) {
     return null;
